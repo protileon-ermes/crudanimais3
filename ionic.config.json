@@ -1,0 +1,7 @@
+{
+  "name": "crudanimais",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
