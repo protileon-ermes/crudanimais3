@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Registro de animal
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (ionChange)="onSearchChange($event)"></ion-searchbar>
+  <ion-list *ngIf="!isLoading" lines="none">
+    <app-empty-screen *ngIf="!isLoading && listaAnimal.length == 0" [model]="model"></app-empty-screen>
+    <ion-item-group *ngIf="!hasSearched && listaAnimal.length > 0">
+      <app-animal *ngFor="let animal of listaAnimal" [animal]="animal" (click)="irParaEditar(animal)"></app-animal>
+    </ion-item-group>
+    <ion-item-group *ngIf="hasSearched && animal.length > 0">
+      <app-animal *ngFor="let animal of animal" [animal]="animal" (click)="irParaEditar(animal)"></app-animal>
+    </ion-item-group>
+    <app-empty-screen *ngIf="hasSearched && animal.length == 0" [model]="empty"></app-empty-screen>
+</ion-list>
+
+  <ion-list *ngFor="let animal of listaAnimal;">
+    <ion-item (click)="irParaEditar(animal)">
+      <ion-avatar *ngIf="animal.downloadURL != null">
+        <img src="{{animal.downloadURL}}"/>
+      </ion-avatar>
+      <ion-avatar *ngIf="animal.downloadURL == null">
+        <img src="assets/avatar.png"/>
+      </ion-avatar>
+      <ion-label style="margin-left: 5%;">{{animal.nome}}</ion-label>
+      <ion-label style="margin-left: 5%;">{{animal.especie}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="start">
+    <ion-fab-button color="danger" (click)="logout()">
+      <ion-icon name="exit-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>  
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="tertiary" (click)="irParaRegistro()">
+      <ion-icon name="add-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,9 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>Animais</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-forms [animal]="animal" (atualizar)="editar($event)" (imagemadd)="uploadFile($event)" (deletar)="excluir($event)"></app-forms>
+</ion-content>

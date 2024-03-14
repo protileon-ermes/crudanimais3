@@ -1,0 +1,51 @@
+<form [formGroup]="formRegistrar" (ngSubmit)="submitForm()">
+    <ion-item *ngIf="this.animal">
+        <ion-toggle (ionChange)="PermitirEdicao()">Habilitar Edição</ion-toggle>
+    </ion-item>
+    <ion-list disabled="{{editar}}">
+          <ion-item>
+            <ion-label position="floating">Espécie</ion-label>
+            <ion-input placeholder="Insira a Especie" formControlName="especie" [value]="animal?.especie"></ion-input>
+          </ion-item>
+            <span *ngIf="formRegistrar.get('especie')?.dirty 
+            && formRegistrar.get('especie')?.errors?.['minlength']">Especie deve ter no minimo 3 letras</span>
+            <span *ngIf="formRegistrar.get('especie')?.dirty 
+            && formRegistrar.get('especie')?.errors?.['maxlength']">Especie deve ter no maximo 12 letras</span>
+          <ion-item >
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input placeholder="Insira o nome" formControlName="nome" [value]="animal?.nome"></ion-input>
+          </ion-item>
+          <span *ngIf="formRegistrar.get('nome')?.dirty 
+            && formRegistrar.get('nome')?.errors?.['minlength']">Nome deve ter no minimo 3 letras</span>
+            <span *ngIf="formRegistrar.get('nome')?.dirty 
+            && formRegistrar.get('nome')?.errors?.['maxlength']">Nome deve ter no maximo 20 letras</span>
+          <ion-item >
+            <ion-label position="floating">Gênero</ion-label>
+            <ion-select placeholder="Selecione" formControlName="genero" [value]="animal?.genero">
+              <ion-select-option value="0">Fêmea</ion-select-option>
+              <ion-select-option value="1">Macho</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item >
+            <ion-label position="floating">Peso</ion-label>
+            <ion-input placeholder="Insira o peso do animal" formControlName="peso" type="number" [value]="animal?.peso"></ion-input>
+          </ion-item>
+          <ion-item >
+            <ion-label position="floating">Saúde</ion-label>
+            <ion-select placeholder="Selecione" formControlName="saude" [value]="animal?.saude">
+              <ion-select-option value="0">Machucado/ferido</ion-select-option>
+              <ion-select-option value="1">Saudável</ion-select-option>
+              <ion-select-option value="2">Doente</ion-select-option>
+              <ion-select-option value="3">Aguardando exames</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-button size="default" color="success" shape="round">
+                <input type="file" (change)="uploadImg($event.target)"/>
+              </ion-button>
+            </ion-item>
+    </ion-list>
+    <ion-button type="submit" *ngIf="!this.animal" expand="block" color="tertiary">Enviar</ion-button>
+    <ion-button *ngIf="this.animal" type="submit" expand="block" color="secondary" disabled="{{editar}}">Salvar</ion-button>
+    <ion-button *ngIf="this.animal" expand="block" color="danger" [disabled]="editar" (click)="deletarAnimal()">Excluir</ion-button>
+  </form>

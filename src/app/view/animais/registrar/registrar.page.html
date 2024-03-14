@@ -1,0 +1,9 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-forms *ngIf="!puxaForm" (criar)="registrar($event)" (imagemadd)="uploadFile($event)"></app-forms>
+</ion-content>
